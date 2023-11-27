@@ -10,13 +10,19 @@
 import { strict as assert } from "assert";
 //1st attempt
 //
-function firstNameGenerator(firstName: string) {
-  assert(typeof firstName === 'string', "Name has got to be a string man");
-  assert(firstName.length >= 1, "Nobody's name is that short man");
-  return firstName;
+function firstName(): string { 
+  return "Jacob";
 }
-firstNameGenerator(Bryce);
-console.log 
+
+function lastName(): string {
+  return "Peters";
+}
+
+function fullName(first: string, last: string): string {
+  return `${first} ${last}`;
+}
+
+console.log(fullName(firstName(), lastName()));
 
 
 //testing the git
