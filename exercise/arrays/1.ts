@@ -65,6 +65,17 @@
 // 6. Assert that the `ranking` is now [5, 4, 3, 2, 1]
 //    and `teams` is now ["pink", "blue", "red", "yellow", "green"]
 
+// 1. Sort the `ranking` and `teams` arrays given the above restrictions
+// 2. Assert that the `ranking` is [1, 2, 3, 4] and `teams`
+//    is ["green", "yellow", "red", "blue"]:
+// 3. Add team "pink" at rank 5
+// 4. Assert that the `ranking` is now [1, 2, 3, 4, 5]
+//    and `teams` is ["green", "yellow", "red", "blue", "pink"]
+// 5. Sort the updated rankings in reverse order because the client called and
+//    wants this done:
+// 6. Assert that the `ranking` is now [5, 4, 3, 2, 1]
+//    and `teams` is now ["pink", "blue", "red", "yellow", "green"]
+
 // Import the assert module for testing
 import { strict as assert } from "assert";
 
@@ -72,34 +83,35 @@ import { strict as assert } from "assert";
 const ranking = [3, 4, 1, 2];
 const teams = ["red", "blue", "green", "yellow"];
 
-// Splice the ranking array to get the last two elements and update the ranking array
-const firstRanks = ranking.splice(2, 2); // firstRanks = [1, 2], ranking = [3, 4]
-// Concatenate the extracted elements with the modified ranking array
-const newRanking = firstRanks.concat(ranking); // newRanking = [1, 2, 3, 4]
+// 1. Sort the `ranking` and `teams` arrays given the above restrictions
+const fixedRanking = ranking.splice(2, 2);
+const newRanking = fixedRanking.concat(ranking);
 
-// Repeat the same process with the teams array
-const firstTeams = teams.splice(2, 2); // firstTeams = ["green", "yellow"], teams = ["red", "blue"]
-// Concatenate the extracted elements with the modified teams array
-const newTeams = firstTeams.concat(teams); // newTeams = ["green", "yellow", "red", "blue"]
+const fixedTeams = teams.splice(2,2);
+const newTeams = fixedTeams.concat(teams)
 
-// Assert checks if the newRanking and newTeams arrays match the expected results
+//2. Assert that the `ranking` is [1, 2, 3, 4] and `teams`
+//   is ["green", "yellow", "red", "blue"]:
+
 assert.deepEqual(newRanking, [1, 2, 3, 4]);
 assert.deepEqual(newTeams, ["green", "yellow", "red", "blue"]);
 
-// Add a new element to the end of each array
-newRanking.push(5); // Adds 5 to newRanking
-newTeams.push("pink"); // Adds "pink" to newTeams
+//3. Add team "pink" at rank 5
+newRanking.push(5);
+newTeams.push("pink");
 
-// Assert checks if the arrays after the push operation match the expected results
+// 4. Assert that the `ranking` is now [1, 2, 3, 4, 5]
+//    and `teams` is ["green", "yellow", "red", "blue", "pink"]
+
 assert.deepEqual(newRanking, [1, 2, 3, 4, 5]);
 assert.deepEqual(newTeams, ["green", "yellow", "red", "blue", "pink"]);
 
-// Reverse the order of elements in each array
-newRanking.reverse(); // newRanking is now [5, 4, 3, 2, 1]
-newTeams.reverse(); // newTeams is now ["pink", "blue", "red", "yellow", "green"]
+// 5. Sort the updated rankings in reverse order because the client called and
+//    wants this done:
 
-// Assert checks if the arrays after the reverse operation match the expected results
-assert.deepEqual(newRanking, [5, 4, 3, 2, 1]);
-assert.deepEqual(newTeams, ["pink", "blue", "red", "yellow", "green"]); 
+const rankUpdate = newRanking.reverse();
+const teamUpdate = newTeams.reverse();
 
-
+//add a new constant that is used for further updates
+assert.deepEqual(rankUpdate, [5, 4, 3, 2, 1]);
+assert.deepEqual(teamUpdate, ["pink", "blue", "red", "yellow", "green"]);
